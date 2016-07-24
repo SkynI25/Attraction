@@ -1,22 +1,27 @@
 #include <stdio.h>
 
-int main() {
+// 기존 것도 훌륭함!
+// 특정 횟수까지는 공백을 출력하고 그 이후로는 별(*)을 출력하는 문제임.
+// for문 안에 if를 넣어서 구별하는 것도 좋은 방법이지만,
+// for문 두개로 나누어서 생각하는 것이 좀 더 자연스러운 사고(?)라고 생각함.
+// 코드도 좀 더 보기 좋아졌다고 생각하는데...아닌가?ㅎㅎㅎ
+// 그렇다고 시간 복잡도가 높아지는 것은 아님. 안쪽에 있는 두 for문의
+// 반복 횟수를 잘 보면 기존 것과 동일함~
 
+int main() {
 	int star, i, j;
 
 	scanf("%d", &star);
+
 	for (i = 0; i < star; i++) {
-		for (j = 0; j < star; j++) {
-			if (j < star - 1 - i) {
-				printf(" ");
-			}
-			else {
-				printf("*");
-			}
+		for(j = 0; j <= (star - i); j++) {
+			printf(" ");
+		}
+		for(j = 0; j < i; j++) {
+			printf("*");
 		}
 		printf("\n");
 	}
-	getchar();
 
 	return 0;
 }
