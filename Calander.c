@@ -17,30 +17,8 @@ int main() {
 
 	int month, day, index = 0, i = 0;
 
-	int daysOfMonth[12 + 1] = {
-		0,			// month 인덱스 맞추기 위해 넣은 더미값
-		31,			// 1월
-		28,			// 2월
-		31,			// 3월
-		30,			// 4월
-		31,			// 5월
-		30,			// 6월
-		31,			// 7월
-		31,			// 8월
-		30,			// 9월
-		31,			// 10월
-		30,			// 11월
-		31			// 12월
-	};
-	char* week[] = {
-		"MON",		// 0
-		"TUE",		// 1
-		"WED",		// 2
-		"THU",		// 3
-		"FRI",		// 4
-		"SAT",		// 5
-		"SUN"		// 6
-	};
+	int daysOfMonth[12 + 1] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	char* week[] = { "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" };
 
 	scanf_s("%d %d", &month, &day);
 
