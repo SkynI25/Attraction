@@ -49,24 +49,21 @@ int main() {
 		}
 	}
 
-	for (int n = 0; n < 100; n++) {
+	scanf_s("%d %d", &month, &day);
 
-		scanf_s("%d %d", &month, &day);
+	month -= 1;
+	day -= 1;
 
-		month -= 1;
-		day -= 1;
-
-		switch (arr[month][day] % 7) {
-		case 0: printf("MON\n"); break;
-		case 1: printf("TUE\n"); break;
-		case 2: printf("WED\n"); break;
-		case 3: printf("THU\n"); break;
-		case 4: printf("FRI\n"); break;
-		case 5: printf("SAT\n"); break;
-		case 6: printf("SUN\n"); break;
-		}
-
+	switch (arr[month][day] % 7) {
+	case 0: printf("MON\n"); break;
+	case 1: printf("TUE\n"); break;
+	case 2: printf("WED\n"); break;
+	case 3: printf("THU\n"); break;
+	case 4: printf("FRI\n"); break;
+	case 5: printf("SAT\n"); break;
+	case 6: printf("SUN\n"); break;
 	}
+
 	getchar();
 	return 0;
 }
