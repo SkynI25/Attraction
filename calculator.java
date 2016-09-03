@@ -1,76 +1,72 @@
+package calculator;
+
+import java.util.HashMap;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+import java.util.function.BiFunction;
 
 public class calculator {
+    
+    public static HashMap<Character, BiFunction<Double, Double, Double>> operators = new HashMap<>();
 
-	public static void main(String[] args) {
-		String str1;
-		int num1 = 0, num2 = 0;
-		double x,y;
-		Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-		System.out.print("¿¬»ê½ÄÀ» ÀÔ·ÂÇÏ¼¼¿ä [¿¹:2+2] : ");
-		str1 = sc.nextLine();
-		String a, b;
-		for (int i = 0; i < str1.length(); i++) {
-			switch (str1.charAt(i)) {
-			case '+':
-				a = str1.substring(i + 1);
-				num1 = Integer.parseInt(a);
+        String inputExprssion;
 
-				b = str1.substring(0, i);
-				num2 = Integer.parseInt(b);
-				System.out.printf("num1 : %d num2 : %d\n", num1, num2);
-				System.out.println(num2 + num1);
-				break;
-			case '-' : 	
-				a = str1.substring(i + 1);
-				num1 = Integer.parseInt(a);
+        String arg1;
+        String arg2;
 
-				b = str1.substring(0, i);
-				num2 = Integer.parseInt(b);
-				System.out.printf("num1 : %d num2 : %d\n", num1, num2);
-				System.out.println(num2 - num1);
-				break;
-			case '*' :
-				a = str1.substring(i + 1);
-				num1 = Integer.parseInt(a);
+        double num1 = 0;
+        double num2 = 0;
+        
+        double result;
 
-				b = str1.substring(0, i);
-				num2 = Integer.parseInt(b);
-				System.out.printf("num1 : %d num2 : %d\n", num1, num2);
-				System.out.println(num2 * num1);
-				break;
-			case '/' :
-				a = str1.substring(i + 1);
-				x = Double.parseDouble(a);
-				if(x==0) {
-					break;
-				}
-				b = str1.substring(0, i);
-				y = Double.parseDouble(b);
-				double result = y/x;
-				System.out.printf("x : %.1f y : %.1f\n", x, y);
-				System.out.printf("%f\n",result);
-				break;
-				
-		}
-		/*
-		 * char index = str1.charAt(i); num1 = Integer.parseInt(index);
-		 * 
-		 * if(index>='0' && index <='9') { num1 = str1.charAt(i);
-		 * System.out.println(str1.charAt(i) + " Ã¹¹øÂ° ÇÇ¿¬»êÀÚ");
-		 * System.out.println(num1 + " num1ÀÇ °ª"); } else if(index>='0' && index
-		 * <='9' && num1 != 0) { num2 = str1.charAt(i);
-		 * System.out.println(str1.charAt(i) + " µÎ¹øÂ° ÇÇ¿¬»êÀÚ");
-		 * System.out.println(num2 + " num2ÀÇ °ª"); }
-		 */
-		/*
-		 * if(index == '+') { index_ = str1.charAt(i);
-		 * System.out.println(str1.charAt(i) + " ¿¬»êÀÚ"); System.out.println(index
-		 * + " ¿¬»êÀÚ"); } }
-		 */
-		}
-	}
+        inputExprssion = sc.nextLine();
+
+        operators.put('^', (a, b) -> Math.pow(a, b));
+        operators.put('+', (a, b) -> a + b);
+        operators.put('-', (a, b) -> a - b);
+        operators.put('*', (a, b) -> a * b);
+        operators.put('/', (a, b) -> {
+                                        if(b == 0) {
+                                            throw new ArithmeticException("0ìœ¼ë¡œ ë‚˜ëˆ„ì‹œë©´ ì•ˆë˜ìš”.");
+                                        }
+                                            
+                                        return a / b;
+        });
+
+        for (int i = 0; i < inputExprssion.length(); i++) {
+            if(isOperator(inputExprssion.charAt(i))) {
+                num1 = getNum1(inputExprssion, i);
+                num2 = getNum2(inputExprssion, i);
+                
+                try {
+                    result = calculate(inputExprssion.charAt(i), num1, num2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                
+                break;
+            }
+        }
+    }
+    
+    public static double getNum1(String input, int i) {
+        String str = input.substring(0, i);
+        return Double.parseDouble(str);
+    }
+    
+    public static double getNum2(String input, int i) {
+        String str = input.substring(i + 1);
+        return Double.parseDouble(str);
+    }
+    
+    public static boolean isOperator(char c) {
+        return operators.containsKey(c);
+    }
+    
+    public static double calculate(char op, double num1, double num2) {
+        return operators.get(op).apply(num1, num2);
+    }
 }
-// TODO Auto-generated method stub
